@@ -85,5 +85,31 @@ end
 
 my_grep(gets.chomp)
 
+# Scopes und lokale Variablen
 
+foo = nil
+p1 = proc{|n| foo=n} # proc definieren in welcher foo gleich dem param gesetzt wird
+p2 = proc{|n| foo+=n} # proc definieren in welcher foo gleich foo plus dem param gesetzt wird
 
+foo = 5
+p1.call 7 # foo = 7
+p1.call 9 # foo = 9
+p2.call 1 # foo = 9(foo) + 1
+
+def foobar
+  x = nil
+  get = proc{x} # proc enthält x
+  set = proc{|n| x = n} # proc setzt lokales x gleich param
+  # procs merkern sich den context in welchem sie definiert wurden
+  # also werden sie sich immer auf das gleiche x in dieser methode beziehen
+  return get, set
+end
+
+# 1 und 2 werden weil es verschiedene methoden aufrufe sind
+# mit unterschiedlichen contexten "initialisiert"
+r1, w1 = foobar
+r2, w2 = foobar
+r1.call
+w1.call(2) # wenn wir hier 1 = 2 setzen
+r1.call # ist hier x in context 1 = 2
+r2.call # aber hier ist x in context 2 immernoch nil
