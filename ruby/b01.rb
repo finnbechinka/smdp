@@ -96,6 +96,8 @@ p1.call 7 # foo = 7
 p1.call 9 # foo = 9
 p2.call 1 # foo = 9(foo) + 1
 
+##
+
 def foobar
   x = nil
   get = proc{x} # proc enthält x
@@ -113,3 +115,13 @@ r1.call
 w1.call(2) # wenn wir hier 1 = 2 setzen
 r1.call # ist hier x in context 1 = 2
 r2.call # aber hier ist x in context 2 immernoch nil
+
+# Dinge einbinden
+
+=begin
+  include bindet alle methoden eines moduls in das aktuelle modul ein
+
+  load führt ein ruby programm aus 
+
+  require loads ein programm solange es nicht schon geladen ist
+=end
