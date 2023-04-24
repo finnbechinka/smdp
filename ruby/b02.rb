@@ -21,7 +21,7 @@ class Tree
   end
 
   def initialize(hash)
-    @tree = create_tree hash
+    @tree = create_tree(hash)[0]
   end
 
   def create_tree(hash)
@@ -35,11 +35,11 @@ class Tree
   end
 
   def visit_all
-    @tree[0].visit_children
+    @tree.visit_children
   end
 end
 
-hash = {"grandpa" => { "dad"   => {"child 1" => {}, "child 2" => {} }, "uncle" => {"child 3" => {}, "child 4" => {} } } }
+hash = {"grandpa" => { "dad"   => {"child 1" => {}, "child 2" => {} }, "uncle" => {"child 3" => {}, "child 4" => {"child 5" => {}} } } }
 t = Tree.new hash
 t.visit_all
 
