@@ -18,10 +18,13 @@ subtower(El, T) :-
 
 tower(T) :- [TH|_] = T, top(TH), subtower(TH, T2), T = T2.
 
-higher([_|_], []) :- true.
-higher([_|T1T], [_|T2T]) :- higher(T1T, T2T).
+higher([_|_], []).
+higher([_|T1T], [_|T2T]) :-
+  subtower(_, [_|ST1T]), ST1T = T1T,
+  subtower(_, [_|ST2T]), ST2T = T2T,
+  higher(T1T, T2T).
 
-highest(H) :- tower(T), T \= H, higher(H, T).
+highest(H) :- tower(H), \+ higher(_, H).
 
 
 % Noch mehr Listen
