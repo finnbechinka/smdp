@@ -50,8 +50,7 @@ contains([L|T], X) :- L = X; contains(T, X).
 
 max_r([], _) .
 max_r([L|T], Z) :-
-  Z >= L, max_r(T, Z);
-  fail.
+  Z >= L, max_r(T, Z).
 max(L, Z) :- contains(L, Z), max_r(L, Z).
 
 
